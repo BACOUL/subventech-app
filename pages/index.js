@@ -5,28 +5,28 @@ export default function Home(){
   return (
     <>
       <section className="hero">
-        <h1>Vos subventions. En un clic. <span style={{color:'var(--accent)'}}>Preuve à l’arrivée.</span></h1>
+        <h1>Vos subventions en un clic.</h1>
         <p className="muted">
-          Assistant IA focalisé subventions/aides (perso & PME) — preuve-first, anticipation, simplicité, rigueur RGPD.
+          Assistant intelligent pour trouver vos aides et constituer vos dossiers (perso & PME) — simple, rapide, et conforme RGPD.
         </p>
         <div className="ctaRow" role="group" aria-label="Appels à l’action">
           <Link className="btn btnPrimary" href="/aides">Tester mes aides</Link>
-          <Link className="btn btnGhost" href="/dossier">Voir une preuve</Link>
+          <Link className="btn btnGhost" href="/dossier">Créer mon dossier</Link>
         </div>
       </section>
 
-      <section className="grid" aria-label="Principes">
+      <section className="grid" aria-label="Avantages">
         <div className="card">
-          <h3>Preuve-first</h3>
-          <p className="muted">Chaque action génère une preuve vérifiable (PDF/JSON/EML/ICS).</p>
+          <h3>Simple</h3>
+          <p className="muted">Un parcours en quelques clics pour identifier et obtenir vos aides.</p>
         </div>
         <div className="card">
-          <h3>Simple & rapide</h3>
-          <p className="muted">Parcours en 3 étapes, 60 s pour la première preuve.</p>
+          <h3>Rapide</h3>
+          <p className="muted">Simulation instantanée et dossiers guidés étape par étape.</p>
         </div>
         <div className="card">
-          <h3>RGPD by design</h3>
-          <p className="muted">Données minimisées, stockage UE, audit & rollback.</p>
+          <h3>Conforme RGPD</h3>
+          <p className="muted">Vos données sont protégées, stockées en Europe et supprimables à tout moment.</p>
         </div>
       </section>
     </>
