@@ -1,19 +1,19 @@
-name: a11y
+name: A11y tests
 
 on:
   push:
     branches: [ main ]
   pull_request:
-    branches: [ main ]
 
 jobs:
-  a11y:
+  test:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Use Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -21,13 +21,17 @@ jobs:
       - name: Install deps
         run: npm ci
 
-      - name: Install Playwright
-        run: npm run test:install
+      - name: Install Playwright (browsers)
+        run: npx playwright install --with-deps
 
-      # Option 1 : tester le site construit localement (par défaut)
-      - name: Run tests (local build)
-        run: npm test
+      - name: Build app
+        run: npm run build
 
-      # Option 2 : pour tester directement le site Vercel prod, dé-commente ces 2 lignes
-      # - name: Test against production URL
-      #   run: BASE_URL="https://ton-domaine.vercel.app" npx playwright test
+      - name: Start app (background)
+        run: npx next start -p 3000 &
+
+      - name: Wait for server
+        run: npx wait-on http://localhost:3000
+
+      - name: Run a11y tests
+        run: npx playwright test
