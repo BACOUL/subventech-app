@@ -84,6 +84,4 @@ body {
   color: var(--text);
   text-decoration: none;
 }
-.btn-outline:hover {
-  background: var(--surface);
-}
+.btn-outline:hover { background: var(--surface); }
