@@ -1,87 +1,71 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* styles/globals.css  — remplace tout */
+:root{
+  /* Brand tokens (dark by default) */
+  --bg:        #0E1116;
+  --surface:   #111827;
+  --text:      #E5F2F4;
+  --primary:   #0B3B6B; /* bleu logo */
+  --accent:    #16B978; /* vert logo */
+  --muted:     #94A3B8;
+  --border:    #1F2937;
 
-/* Design tokens SubvenTech — thème sombre par défaut */
-:root {
-  --bg:      #0E1116;
-  --surface: #111827;
-  --text:    #E5F2F4;
-  --primary: #4F46E5;
-  --muted:   #94A3B8;
-  --border:  #1F2937;
+  /* Typo variables (Sora titres, Inter texte) */
+  --font-inter: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  --font-sora:  'Sora', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --bg:      #F7F8FA;
-    --surface: #FFFFFF;
-    --text:    #0B1320;
-    --primary: #4F46E5;
-    --muted:   #64748B;
-    --border:  #E5E7EB;
+/* Light mode si l’OS est en clair */
+@media (prefers-color-scheme: light){
+  :root{
+    --bg:#F7F8FA; --surface:#FFFFFF; --text:#0B1320;
+    --primary:#0B3B6B; --accent:#16B978; --muted:#64748B; --border:#E5E7EB;
   }
 }
 
-/* Base */
-* { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; }
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  line-height: 1.5;
+*{box-sizing:border-box}
+html,body{padding:0;margin:0}
+html{font-family:var(--font-inter); color:var(--text); background:var(--bg);}
+h1,h2,h3,h4{font-family:var(--font-sora); letter-spacing:-0.01em;}
+
+/* Layout utilitaires */
+.container{max-width:1100px; margin:0 auto; padding:0 16px;}
+.header{
+  position:sticky; top:0; z-index:10;
+  background: color-mix(in oklab, var(--surface) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom:1px solid var(--border);
+}
+.nav{display:flex; align-items:center; justify-content:space-between; height:56px;}
+.brand{display:flex; gap:10px; align-items:center; color:var(--text); text-decoration:none}
+.brand b{font-family:var(--font-sora); font-size:16px}
+.menu a{margin-left:10px; padding:6px 10px; border-radius:10px; color:var(--text); text-decoration:none}
+.menu a:hover{background: var(--surface);}
+
+main{padding:48px 0;}
+.hero{ text-align:center; margin:40px auto 24px; }
+.hero h1{ font-size:clamp(28px, 3.5vw, 44px); margin:0 0 12px}
+.hero p{color:var(--muted); max-width:720px; margin:0 auto 18px}
+.ctaRow{display:flex; gap:12px; justify-content:center; flex-wrap:wrap}
+.btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  border-radius:12px; padding:10px 16px; font-weight:600; min-width:44px; min-height:44px;
+  border:1px solid var(--border); text-decoration:none; cursor:pointer;
+}
+.btnPrimary{ background:var(--primary); color:#fff; border-color:transparent; }
+.btnPrimary:hover{ filter:brightness(0.95) }
+.btnGhost{ background:transparent; color:var(--text); }
+.btnGhost:hover{ background:var(--surface) }
+
+.grid{ display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); margin-top:28px;}
+.card{ background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:16px;}
+.card h3{margin:0 0 6px}
+.muted{ color:var(--muted) }
+
+/* Focus visible (a11y) */
+:where(a,button,.btn):focus-visible{
+  outline:3px solid color-mix(in oklab, var(--accent) 60%, transparent);
+  outline-offset:2px; border-radius:12px;
 }
 
-/* Utilitaires */
-.text-muted { color: var(--muted); }
-.text-primary { color: var(--primary); }
-
-/* Header/Nav */
-.navlink {
-  color: var(--text);
-  text-decoration: none;
-  padding: 6px 10px;
-  border-radius: 8px;
-  border: 1px solid transparent;
-}
-.navlink:hover {
-  background: var(--surface);
-  border-color: var(--border);
-}
-
-/* Composants */
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 16px;
-}
-.card-title { font-weight: 700; margin-bottom: 6px; }
-.card-text { color: var(--muted); font-size: 0.95rem; }
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 14px;
-  border-radius: 12px;
-  font-weight: 600;
-  background: var(--primary);
-  color: white;
-  text-decoration: none;
-}
-.btn:hover { opacity: 0.95; }
-
-.btn-outline {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 14px;
-  border-radius: 12px;
-  font-weight: 600;
-  border: 1px solid var(--border);
-  color: var(--text);
-  text-decoration: none;
-}
-.btn-outline:hover { background: var(--surface); }
+/* Footer */
+footer{border-top:1px solid var(--border); padding:20px 0; color:var(--muted)}
