@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import Button from './ui/Button';
 
 export default function Header(){
@@ -7,10 +8,12 @@ export default function Header(){
       <div className="mx-auto max-w-6xl px-4 h-14 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Image src="/brand/logo-192.png" alt="SubvenTech" width={24} height={24} />
-          <span className="font-semibold tracking-tight">SubvenTech</span>
+          <Link href="/" className="font-semibold tracking-tight">SubvenTech</Link>
         </div>
-        <nav className="flex items-center gap-2">
-          <Button variant="ghost">Fonctionnalités</Button>
+        <nav className="flex items-center gap-3">
+          <Link href="/" className="text-sm text-muted hover:text-text">Accueil</Link>
+          <Link href="/brand" className="text-sm text-muted hover:text-text">Brand</Link>
+          <Link href="/dossier" className="text-sm text-muted hover:text-text">Dossier</Link>
           <Button>Commencer</Button>
         </nav>
       </div>
