@@ -1,13 +1,16 @@
-export default function Dossier(){
+// pages/dossier.js
+export default function Dossier() {
   return (
-    <>
-      <h1>Assistant Dossier</h1>
-      <p className="muted">Étapes, pièces, suivi — preuve générée à chaque action. (à venir)</p>
-      <div className="grid">
-        <div className="card"><h3>Étapes</h3><p className="muted">Checklist guidée.</p></div>
-        <div className="card"><h3>Pièces</h3><p className="muted">Rappels & validations.</p></div>
-        <div className="card"><h3>Suivi</h3><p className="muted">Statut, délais, notifications.</p></div>
-      </div>
-    </>
+    <section className="page">
+      <h1>Mon dossier</h1>
+      <p className="muted">Étapes, pièces et suivi — tout est centralisé.</p>
+
+      <ol className="steps">
+        <li><strong>Étape 1 :</strong> Profil & éligibilité</li>
+        <li><strong>Étape 2 :</strong> Sélection de l’aide</li>
+        <li><strong>Étape 3 :</strong> Pièces à fournir</li>
+        <li><strong>Étape 4 :</strong> Vérification & dépôt</li>
+      </ol>
+    </section>
   );
 }
