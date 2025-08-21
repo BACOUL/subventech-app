@@ -1,35 +1,36 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
-test.describe('Accessibilité – pages clés', () => {
-  test('Home (/) – aucune violation serious/critical', async ({ page }) => {
-    await page.goto('/');
-    const results = await new AxeBuilder({ page }).analyze();
+// Pages à tester (ajoute-en d'autres si besoin)
+const routes = ['/', '/dossier', '/aides', '/profil'];
 
-    const serious = results.violations.filter(v =>
-      v.impact === 'serious' || v.impact === 'critical'
-    );
+for (const route of routes) {
+  test.describe(`a11y ${route}`, () => {
+    test(`aucune violation sérieuse/critique sur ${route}`, async ({ page }) => {
+      await page.goto(route);
 
-    // Log lisible si jamais ça échoue en local
-    if (serious.length) {
-      console.log('Violations a11y (serious/critical):');
-      for (const v of serious) console.log(`- ${v.id}: ${v.help} (${v.impact})`);
-    }
+      // Axe analyse
+      const results = await new AxeBuilder({ page }).analyze();
 
-    expect(serious).toEqual([]);
+      // Filtre seulement les impacts sérieux/critique
+      const serious = results.violations.filter(v =>
+        ['serious', 'critical'].includes(v.impact || '')
+      );
+
+      // Affiche en cas d'échec
+      if (serious.length) {
+        console.log(
+          '\nViolations a11y:',
+          serious.map(v => ({
+            id: v.id,
+            impact: v.impact,
+            description: v.description,
+            nodes: v.nodes.map(n => n.html).slice(0, 3) // un aperçu
+          }))
+        );
+      }
+
+      expect(serious, 'Aucune violation sérieuse/critique attendue').toEqual([]);
+    });
   });
-
-  test('/brand – aucune violation serious/critical', async ({ page }) => {
-    // si /brand n’existe pas encore, garde ce test, il passera quand tu auras créé la page
-    await page.goto('/brand');
-    const results = await new AxeBuilder({ page }).analyze();
-    const serious = results.violations.filter(v =>
-      v.impact === 'serious' || v.impact === 'critical'
-    );
-    if (serious.length) {
-      console.log('Violations a11y (serious/critical) /brand :');
-      for (const v of serious) console.log(`- ${v.id}: ${v.help} (${v.impact})`);
-    }
-    expect(serious).toEqual([]);
-  });
-});
+}
